@@ -1,7 +1,7 @@
 import  streamlit as st
 
 # funtion
-def convert_units(Value, unit_from , unit_to):
+def convert_units(value, unit_from , unit_to):
 
     # Dictionary / Object
     conversions = {
@@ -16,16 +16,19 @@ def convert_units(Value, unit_from , unit_to):
 
     if key in conversions :
         conversion = conversions[key]
-        return Value * conversion
+        return value * conversion
     
     else:
         return 'Invalid Value to Convert'
     
 st.title("Unit Converter")
  
-value = st.number_input('Enter the Value')
+value = st.number_input('Enter the Value', min_value=1.0 , step=1.0) 
 
-unit_from = st.selectbox("Convert From:", ["Meter" , "Kilometer" , "Gram" , "Kilogram"])
+unit_from = st.selectbox("Convert From:", ["meter" , "kilometer" , "gram" , "kilogram"])
 
-unit_to = st.selectbox("Convert to:", ["Meter" , "Kilometer" , "Gram" , "Kilogram"])
+unit_to = st.selectbox("Convert to:", ["meter" , "kilometer" , "gram" , "kilogram"])
 
+if st.button("Convert"):
+    res = convert_units(value, unit_from, unit_to) # Invoke the conversion Function
+    st.write(f'Converted Value : {res}')  # Display Result On Screen
